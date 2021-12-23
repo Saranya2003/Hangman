@@ -90,3 +90,5 @@ place_guess(Guess, Ans, Blank, Display) :-
     Guess == Ans -> Display = Ans ; Display = Blank.
 
 % This part is let user answer the AI
+
+% This part is for drawing the hangman
