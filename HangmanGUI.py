@@ -1,9 +1,13 @@
 from tkinter import *
 from pyswip import Prolog
 import random
+from PIL import ImageTk, Image
 
 chances = 6
 imgPaths=['1.png','2.png','3.png','4.png','5.png','6.png','7.png']
+img = Image.open(imgPaths[chances])
+img = ImageTk.PhotoImage(img)
+
 # Load Prolog file
 #prolog = Prolog()
 #prolog.consult("hangman")
@@ -20,7 +24,14 @@ img7= PhotoImage(file='7.png')'''
 
 # Draw the hangman if the AI guess the wrong letter
 def drawHangman():
-    pass
+    global chances
+    
+    if chances == 6:
+        image = Image.open(imgPaths[chances])
+        newImage = ImageTk.PhotoImage(image)
+        hangmanCanvas.configure(image=newImage)
+        hangmanCanvas.image = newImage
+        chances -= 1
      
 #Start game
 def startGame():
@@ -57,7 +68,7 @@ guesswordLabel.pack()
 chanceLabel = Label(ws,text="Chances: ",font=('Arial',16))
 chanceLabel.pack()
 
-hangmanCanvas = Canvas(ws,width=600,height=400)
+hangmanCanvas = Label(ws,image=img)
 hangmanCanvas.pack()
 
 QuestionLabel = Label(ws,text="Is it:",font=('Arial',16))
