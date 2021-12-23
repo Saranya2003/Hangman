@@ -41,10 +41,13 @@ processGuess(AnsList,BlankList,GuessName):-
     substitute(AnsList, BlankList, GuessName, NewBlanks), 
     checkWin(AnsList,NewBlanks).
 
-processGuess(AnsList, BlankList,_):-
-    write('Wrong!'),
-    nl,
-    askGuess(AnsList, BlankList).
+processGuess(AnsList, BlankList, _, CountFailed) :-
+  (   CountFailed == 7
+  ->  format('Sorry, game over. You didn\'t guess (~s)~n', [AnsList])
+  ;   write('Nope!'),
+      CountFailed1 is CountFailed + 1,
+      getGuess(AnsList, BlankList, CountFailed1)
+  ).
 
 % Check to see the vocab is guessed. If so, write 'You win'
 
