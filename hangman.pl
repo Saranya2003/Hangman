@@ -4,75 +4,86 @@ vocab(['Software','Security','Enginnering','Programmer','Algorithm','Data','Netw
 letter(['a','A','b','B','c','C','d','D','e','E','f','F','g','G','h','H','i','I','j','J','k','K','l','L','m','M','n','N','o','O','p','P','q','Q','r','R','s','S','t','T','u','U','v','V','w','W','x','X','y','Y','z','Z'])
 
 hangman:-
-    getVocab(answer),
-    !,
-    write('Welcome to hangman game'),
+    getVocab(Ans), 
+    !, 
+    write('Welcome to hangman.'),
     nl,
-    name(answer,answerList),
-    makeBlanks(answerList,blankList),
-    getGuess(answerList,blankList).
+    name(Ans,AnsList), 
+    makeBlanks(AnsList, BlankList), 
+    askGuess(AnsList,BlankList).
 
 % Randomly return a vocab from the list
-getVocab(answer):-
-    vocab(L),
-    length(L,X),
-    R is random(X),
-    N is R+1,
-    getNth(L,N,Ans).
+getVocab(Ans):-
+    vocab(L), 
+    length(L, X), 
+    R is random(X), 
+    N is R+1, 
+    getNth(L, N, Ans).
 
 % This part is let AI guess the letter
 
-askGuess(answerList,blankList):-
-    name(blankName,blankList),
-    write(blankName),
-    nl,
-    write('Is it:'),
-    random_member(X,letter)
-    nl,
-    processGuess(answerList,blankList,guessName).
+askGuess(AnsList, BlankList):- 
+    name(BlankName, BlankList), 
+    write(BlankName), 
+    nl,  
+    write('Enter your guess, followed by a period and return.'), 
+    nl, 
+    read(Guess),
+    !, 
+    name(Guess, [GuessName]), 
+    processGuess(AnsList,BlankList,GuessName)
 
-processGuess(answerList,blankList,guessName):-
-    member(guessName,answerList),
+processGuess(AnsList,BlankList,GuessName):- 
+    member(GuessName,AnsList), 
     !,
-    write('Correct!!'),
+    write('Correct!'),
+    nl, 
+    substitute(AnsList, BlankList, GuessName, NewBlanks), 
+    checkWin(AnsList,NewBlanks).
+
+processGuess(AnsList, BlankList,_):-
+    write('Wrong!'),
     nl,
-    substitute(answerList,blankList,guessName,newBlanks),
-    checkWin(answerList,newBlanks).
+    askGuess(AnsList, BlankList).
 
 % Check to see the vocab is guessed. If so, write 'You win'
 
-checkWin(answerList,newBlanks):-
-    name(answer,answerList),
-    name(blankName,blankList),
-    blankName = answer,
-    !,
-    write('You win').
+checkWin(AnsList, BlankList):- 
+    name(Ans, AnsList), 
+    name(BlankName, BlankList), 
+    BlankName = Ans, 
+    !, 
+    write('You win!').
 
-checkWin(answerList,blankList):-
+checkWin(AnsList, BlankList):- 
     !,
-    getGuess(answerList,blankList).
+    askGuess(AnsList, BlankList).
 
 % getNth(L,N,Ans) should be true when Ans is the Nth element of the list L. N will always be at least 1.
 getNth([H|T],1,H).
 
-getNth([H|T],N,Ans):-
+getNth([H|T],N,E):-
     N1 is N-1,
-    getNth(T,N1,Ans1),
-    Ans=Ans1.
+    getNth(T,N1,E1),
+    E=E1.
 
-% makeBlanks(ansCode,blankCode) should take an answer phrase, which is a list
+% makeBlanks(AnsCodes,blankCode) should take an answer phrase, which is a list
 % of character codes that represent the answer phrase, and return a list
 % where all codes but the '_' turn into the code for '*'.  The underscores
 % need to remain to show where the words start and end.
-makeBlanks(ansCode,blankCode):-
-    maplist(answer_blank,ansCode,blankCode).
+makeBlanks(AnsCodes, BlankCodes) :-
+  maplist(answer_blank, AnsCodes, BlankCodes).
 
-answer_blank(Ans,Blank):-
-    Ans == 0'_ -> Blank = Ans ; Blank = 0'* .
+answer_blank(Ans, Blank) :-
+  Ans == 0'_ -> Blank = Ans ; Blank = 0'* .
 
 % substitute(AnsList, BlankList, GuessName, NewBlanks) Takes character code lists AnsList and BlankList, 
 % and GuessName, which is the character code for the guessed letter.  The NewBlanks should again be a 
 % character code list, which puts all the guesses into the display word and keeps the *'s and _'s otherwise.
+substitute(AnsCodes, BlankCodes, GuessName, NewBlanks) :-
+     maplist(place_guess(GuessName), AnsCodes, BlankCodes, NewBlanks).
 
+place_guess(Guess, Ans, Blank, Display) :-
+    Guess == Ans -> Display = Ans ; Display = Blank.
 
 % This part is let user answer the AI
