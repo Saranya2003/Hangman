@@ -26,12 +26,16 @@ img7= PhotoImage(file='7.png')'''
 def drawHangman():
     global chances
     
-    if chances == 6:
+    if chances<0:
+        print("You lose")
+    else:
         image = Image.open(imgPaths[chances])
         newImage = ImageTk.PhotoImage(image)
         hangmanCanvas.configure(image=newImage)
         hangmanCanvas.image = newImage
         chances -= 1
+        
+        
      
 #Start game
 def startGame():
