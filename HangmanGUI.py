@@ -61,8 +61,7 @@ def answerAI():
 # AI will guess the letter
 def guessing():
     guessletter = random.choice(letterList)
-    AIGuess = "Is it: "+guessletter
-    return AIGuess
+    return guessletter
 
 # Generate the vocabulary
 def vocabGenerate():
@@ -72,9 +71,7 @@ def vocabGenerate():
     vocabStr = "_ "*len(UserAns)
     print(UserAns)
     if len(UserAns) == input:
-        for i in range(len(UserAns)):
-            
-            print(vocabStr)
+        print(vocabStr)
     else:
         print("Length does not match")
     
@@ -109,7 +106,9 @@ chanceNum.pack()
 hangmanCanvas = Canvas(ws,width=w,height=h)
 hangmanCanvas.pack()
 
-QuestionLabel = Label(ws,text="Is it:",font=('Arial',16))
+AiAsk = "Is it: "+guessing()
+
+QuestionLabel = Label(ws,text=AiAsk,font=('Arial',16))
 QuestionLabel.pack()
 
 yesBtn = Button(ws,text="Yes",height=1,width=5,font=('Arial',16),bg='green',command=answerAI)
