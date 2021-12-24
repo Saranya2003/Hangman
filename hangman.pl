@@ -62,7 +62,7 @@ checkWin(AnsList, BlankList):-
     !,
     askGuess(AnsList, BlankList).
 
-% getNth(L,N,Ans) should be true when Ans is the Nth element of the list L. N will always be at least 1.
+% getNth([H|T],N,E) should be true when Ans is the Nth element of the list L. N will always be at least 1.
 getNth([H|T],1,H).
 
 getNth([H|T],N,E):-
@@ -70,7 +70,7 @@ getNth([H|T],N,E):-
     getNth(T,N1,E1),
     E=E1.
 
-% makeBlanks(AnsCodes,blankCode) should take an answer phrase, which is a list
+% makeBlanks(AnsCodes, BlankCodes) should take an answer phrase, which is a list
 % of character codes that represent the answer phrase, and return a list
 % where all codes but the '_' turn into the code for '*'.  The underscores
 % need to remain to show where the words start and end.
