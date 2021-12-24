@@ -4,9 +4,9 @@ import random
 from PIL import ImageTk, Image
 
 chances = 6
-imgPaths=['1.png','2.png','3.png','4.png','5.png','6.png','7.png']
-img = Image.open(imgPaths[chances])
-img = ImageTk.PhotoImage(img)
+#imgPaths=['1.png','2.png','3.png','4.png','5.png','6.png','7.png']
+#img = Image.open(imgPaths[chances])
+#img = ImageTk.PhotoImage(img)
 
 # Load Prolog file
 #prolog = Prolog()
@@ -42,7 +42,8 @@ def drawHangman():
      
 #Start game
 def startGame():
-    pass
+    input = inputText.get("1.0","end-1c")
+    print(input)
 # Answer the AI answer
 def answerAI():
     pass
@@ -75,16 +76,16 @@ guesswordLabel.pack()
 chanceLabel = Label(ws,text="Chances: ",font=('Arial',16))
 chanceLabel.pack()
 
-hangmanCanvas = Label(ws,image=img)
+hangmanCanvas = Label(ws)
 hangmanCanvas.pack()
 
 QuestionLabel = Label(ws,text="Is it:",font=('Arial',16))
 QuestionLabel.pack()
 
-yesBtn = Button(ws,text="Yes",height=1,width=5,font=('Arial',16),bg='green')
+yesBtn = Button(ws,text="Yes",height=1,width=5,font=('Arial',16),bg='green',command=guessing)
 yesBtn.pack()
 
-noBtn = Button(ws,text="No",height=1,width=5,font=('Arial',16),bg='red',fg='white',command=drawHangman)
+noBtn = Button(ws,text="No",height=1,width=5,font=('Arial',16),bg='red',fg='white',command=guessing)
 noBtn.pack()
 
 ws.mainloop()
