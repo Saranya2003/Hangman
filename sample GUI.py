@@ -4,7 +4,7 @@ from tkinter import * #Import tkinter
 # Find if pressed letter is in word or not, update screen
 def keyPressed(event):
     #modifying below global variable locally
-    global count, latestStr, missedLetter
+    global count, latestStr, missedLetters
  
     current=event.char #get the pressed key
  
@@ -33,16 +33,16 @@ def keyPressed(event):
  
         # Prepare message to display on screen
         msg1="Guess a word: "+ latestStr
-        msg2="Missed letters: " +missedLetter
+        msg2="Missed letters: " +missedLetters
  
     else: # Current alphabet is not in original word
-        missedLetter+=(current+'')#Add letter to missed
+        missedLetters+=(current+'')#Add letter to missed
         count += 1 #Increment number of attempts
  
         if count < 7: #Attemtpt finished
             # Prepare message to display on screen
             msg1="Guess a word: "+latestStr
-            msg2="Missed letter: "+missedLetter
+            msg2="Missed letter: "+missedLetters
         else: #Finished all attempts
             # Display failure message, check for continue?
             msg1="Sorry! The word is: "+word

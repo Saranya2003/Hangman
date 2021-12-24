@@ -45,6 +45,7 @@ def drawHangman():
 def startGame():
     input = inputText.get("1.0","end-1c")
     print(input)
+    #vocab = random.choice(Prolog.consult)
 # Answer the AI answer
 def answerAI():
     print("Yes")
