@@ -57,6 +57,7 @@ def startGame():
     print(input)
     vocabGenerate()
     guessing()
+    answerAI()
     
 # Answer the AI answer
 def answerAI():
@@ -70,7 +71,7 @@ def vocabGenerate():
     #vocab = random.choice(Prolog.consult)
     input = inputText.get("1.0","end-1c")
     for i in range(len(vocabList)):
-        for j in range(i):
+        for j in range(len(i)):
             if j == input:
                 guessing()
 # UI for the program
