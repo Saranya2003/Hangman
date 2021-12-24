@@ -9,46 +9,45 @@ letterList = ['a','b','c','d','e','f','g','h','i','j','k','l','m',
             'n','o','p','q','r','s','t','u','v','w','x','y','z']
 vocabList = ['software','security','engineering','programmer','algorithm','data','network','logic']
 
-global vocabStr,AIGuess,UserAns
-
-#imgPaths=['1.png','2.png','3.png','4.png','5.png','6.png','7.png']
-#img = Image.open(imgPaths[chances])
-#img = ImageTk.PhotoImage(img)
-
+global vocabStr,AIGuess,UserAns, AiChances
+w=600
+h=400
 # Load Prolog file
 #prolog = Prolog()
 #prolog.consult("hangman")
 
-# List of hangman image
-'''
-img1= PhotoImage(file='1.png')
-img2= PhotoImage(file='2.png')
-img3= PhotoImage(file='3.png')
-img4= PhotoImage(file='4.png')
-img5= PhotoImage(file='5.png')
-img6= PhotoImage(file='6.png')
-img7= PhotoImage(file='7.png')'''
-
 # Draw the hangman if the AI guess the wrong letter
 def drawHangman():
-    '''
-    global chances
-    
-    if chances<0:
-        print("You lose")
-    else:
-        image = Image.open(imgPaths[chances])
-        newImage = ImageTk.PhotoImage(image)
-        hangmanCanvas.configure(image=newImage)
-        hangmanCanvas.image = newImage
-        chances -= 1
-        '''
     print("No")
+    global chances
+    radius = 30
+    if chances == 6:
+        hangmanCanvas.create_oval(200-radius, 100-radius,200+radius, 100+radius)
+        chances -= 1
+    if chances == 5:
+        hangmanCanvas.create_line(200,130,200,250)
+        chances -= 1
+    if chances == 4:
+        hangmanCanvas.create_line(170,100,100,150)
+        chances -= 1
+    if chances == 3:
+        hangmanCanvas.create_line(230,100,300,150)
+        chances -= 1
+    if chances == 2:
+        hangmanCanvas.create_line(200,250,100,300)
+        chances -= 1
+    if chances == 1:
+        hangmanCanvas.create_line(200,250,300,300)
+        chances -= 1
         
         
      
 #Start game
 def startGame():
+    hangmanCanvas.create_line(10,w-10,50,w-10)
+    hangmanCanvas.create_line(30,w-10,30,50)
+    hangmanCanvas.create_line(30,50,200,50)
+    hangmanCanvas.create_line(200,50,200,70)
     input = inputText.get("1.0","end-1c")
     print(input)
     print(vocabGenerate())
@@ -102,7 +101,7 @@ guesswordLabel.pack()
 chanceLabel = Label(ws,text="Chances: ",font=('Arial',16))
 chanceLabel.pack()
 
-hangmanCanvas = Label(ws)
+hangmanCanvas = Canvas(ws,width=w,height=h)
 hangmanCanvas.pack()
 
 QuestionLabel = Label(ws,text="Is it:",font=('Arial',16))
