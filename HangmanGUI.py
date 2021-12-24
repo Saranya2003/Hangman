@@ -5,13 +5,9 @@ from PIL import ImageTk, Image
 
 
 chances = 6
-letterList = ['a','A','b','B','c','C','d','D','e','E',
-            'f','F','g','G','h','H','i','I','j','J',
-            'k','K','l','L','m','M','n','N','o','O',
-            'p','P','q','Q','r','R','s','S','t','T',
-            'u','U','v','V','w','W','x','X','y','Y',
-            'z','Z']
-vocabList = ['Software','Security','Engineering','Programmer','Algorithm','Data','Network','Logic']
+letterList = ['a','b','c','d','e','f','g','h','i','j','k','l','m',
+            'n','o','p','q','r','s','t','u','v','w','x','y','z']
+vocabList = ['software','security','engineering','programmer','algorithm','data','network','logic']
 
 global vocabStr,AIGuess,UserAns
 
@@ -73,12 +69,16 @@ def vocabGenerate():
     #vocab = random.choice(Prolog.consult)
     input = inputText.get("1.0","end-1c")
     UserAns = random.choice(vocabList)
+    vocabStr = "_ "*len(UserAns)
     print(UserAns)
     if len(UserAns) == input:
         for i in range(len(UserAns)):
-            for j in range(i):
-                if j == input:
-                    guessing()
+            
+            print(vocabStr)
+    else:
+        print("Length does not match")
+    
+    return vocabStr
 
 # UI for the program
 ws = Tk()
