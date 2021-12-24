@@ -102,6 +102,10 @@ guesswordLabel.pack()
 chanceLabel = Label(ws,text="Chances: ",font=('Arial',16))
 chanceLabel.pack()
 
+chanceNum = Entry(ws)
+chanceNum.insert(END,chances)
+chanceNum.pack()
+
 hangmanCanvas = Canvas(ws,width=w,height=h)
 hangmanCanvas.pack()
 
