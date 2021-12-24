@@ -13,6 +13,7 @@ letterList = ['a','A','b','B','c','C','d','D','e','E',
             'z','Z']
 vocabList = ['Software','Security','Engineering','Programmer','Algorithm','Data','Network','Logic']
 
+global vocabStr,AIGuess,UserAns
 
 #imgPaths=['1.png','2.png','3.png','4.png','5.png','6.png','7.png']
 #img = Image.open(imgPaths[chances])
@@ -67,7 +68,11 @@ def guessing():
 # Generate the vocabulary
 def vocabGenerate():
     #vocab = random.choice(Prolog.consult)
-    pass
+    input = inputText.get("1.0","end-1c")
+    for i in range(len(vocabList)):
+        for j in range(i):
+            if j == input:
+                guessing()
 # UI for the program
 ws = Tk()
 ws.title("Hangman")
