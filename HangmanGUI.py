@@ -57,7 +57,7 @@ def startGame():
     print(input)
     vocabGenerate()
     guessing()
-    answerAI()
+    print(guessing())
     
 # Answer the AI answer
 def answerAI():
@@ -65,15 +65,19 @@ def answerAI():
 
 # AI will guess the letter
 def guessing():
-    pass
+    guessletter = random.choice(letterList)
+    AIGuess = "Is it: "+guessletter
+    return AIGuess
+
 # Generate the vocabulary
 def vocabGenerate():
     #vocab = random.choice(Prolog.consult)
     input = inputText.get("1.0","end-1c")
     for i in range(len(vocabList)):
-        for j in range(len(i)):
+        for j in range(i):
             if j == input:
                 guessing()
+
 # UI for the program
 ws = Tk()
 ws.title("Hangman")
