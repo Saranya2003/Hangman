@@ -54,6 +54,8 @@ def drawHangman():
 def startGame():
     input = inputText.get("1.0","end-1c")
     print(input)
+    vocabGenerate()
+    guessing()
     
 # Answer the AI answer
 def answerAI():
