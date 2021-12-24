@@ -24,6 +24,7 @@ img7= PhotoImage(file='7.png')'''
 
 # Draw the hangman if the AI guess the wrong letter
 def drawHangman():
+    '''
     global chances
     
     if chances<0:
@@ -34,6 +35,8 @@ def drawHangman():
         hangmanCanvas.configure(image=newImage)
         hangmanCanvas.image = newImage
         chances -= 1
+        '''
+    pass
         
         
      
