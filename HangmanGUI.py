@@ -55,13 +55,12 @@ def drawHangman():
 def startGame():
     input = inputText.get("1.0","end-1c")
     print(input)
-    vocabGenerate()
-    guessing()
+    print(vocabGenerate())
     print(guessing())
     
 # Answer the AI answer
 def answerAI():
-    print("Yes")
+    print("Correct!")
 
 # AI will guess the letter
 def guessing():
@@ -73,10 +72,13 @@ def guessing():
 def vocabGenerate():
     #vocab = random.choice(Prolog.consult)
     input = inputText.get("1.0","end-1c")
-    for i in range(len(vocabList)):
-        for j in range(i):
-            if j == input:
-                guessing()
+    UserAns = random.choice(vocabList)
+    print(UserAns)
+    if len(UserAns) == input:
+        for i in range(len(UserAns)):
+            for j in range(i):
+                if j == input:
+                    guessing()
 
 # UI for the program
 ws = Tk()
