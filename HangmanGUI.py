@@ -22,30 +22,44 @@ def drawHangman():
     hangmanCanvas.delete()
     global chances
     radius = 30
+    chances -= 1
     #draw head
-    if chances == 6:
-        hangmanCanvas.create_oval(200-radius, 100-radius,200+radius, 100+radius)
-        chances -= 1
-    #draw body
     if chances == 5:
-        hangmanCanvas.create_line(200,130,200,250)
-        chances -= 1
-    #draw first arm
+        hangmanCanvas.create_oval(200-radius, 100-radius,200+radius, 100+radius)
+        chanceNum.insert(END,chances)
+        guessing()
+
+        
+    #draw body
     if chances == 4:
-        hangmanCanvas.create_line(170,200,200,150)
-        chances -= 1
-    #draw second arm
+        hangmanCanvas.create_line(200,130,200,250)
+        chanceNum.insert(END,chances)
+        guessing()
+
+    #draw first arm
     if chances == 3:
-        hangmanCanvas.create_line(230,200,200,150)
-        chances -= 1
-    #draw first leg
+        hangmanCanvas.create_line(170,200,200,150)
+        chanceNum.insert(END,chances)
+        guessing()
+
+    #draw second arm
     if chances == 2:
-        hangmanCanvas.create_line(200,250,230,300)
-        chances -= 1
-    #draw second leg
+        hangmanCanvas.create_line(230,200,200,150)
+        chanceNum.insert(END,chances)
+        guessing()
+
+    #draw first leg
     if chances == 1:
+        hangmanCanvas.create_line(200,250,230,300)
+        chanceNum.insert(END,chances)
+        guessing()
+
+    #draw second leg
+    if chances == 0:
         hangmanCanvas.create_line(200,250,170,300)
-        chances -= 1
+        chanceNum.insert(END,chances)
+        guessing()
+        
         
         
      
@@ -63,6 +77,8 @@ def startGame():
 # Answer the AI answer
 def answerAI():
     print("Correct!")
+    guessing()
+    
 
 # AI will guess the letter
 def guessing():
@@ -72,14 +88,10 @@ def guessing():
 # Generate the vocabulary
 def vocabGenerate():
     #vocab = random.choice(Prolog.consult)
-    input = inputText.get("1.0","end-1c")
     UserAns = random.choice(vocabList)
     vocabStr = "_ "*len(UserAns)
     print(UserAns)
-    if len(UserAns) == input:
-        print(vocabStr)
-    else:
-        print("Length does not match")
+    inputText.insert(END,vocabStr)
     
     return vocabStr
 
@@ -93,11 +105,11 @@ ws['bg']='#FF9CD1'
 title = Label(ws,text="Enter the number of letters in your word:",font=('Arial',16))
 title.pack()
 
-inputText = Text(ws,height=2,width=5)
-inputText.pack()
-
 startbtn = Button(ws,text="Start",height=1,width=5,font=('Arial',16),command=startGame)
 startbtn.pack()
+
+inputText = Text(ws,height=1,width=20)
+inputText.pack()
 
 guesswordLabel = Label(ws,text="Word: ",font=('Arial',16))
 guesswordLabel.pack()
