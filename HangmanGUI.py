@@ -1,7 +1,7 @@
 from tkinter import *
 from pyswip import Prolog
 import random
-from PIL import ImageTk, Image
+
 
 
 chances = 6
@@ -19,6 +19,7 @@ h=400
 # Draw the hangman if the AI guess the wrong letter
 def drawHangman():
     print("No")
+    hangmanCanvas.delete()
     global chances
     radius = 30
     if chances == 6:
