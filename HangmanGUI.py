@@ -22,23 +22,29 @@ def drawHangman():
     hangmanCanvas.delete()
     global chances
     radius = 30
+    #draw head
     if chances == 6:
         hangmanCanvas.create_oval(200-radius, 100-radius,200+radius, 100+radius)
         chances -= 1
+    #draw body
     if chances == 5:
         hangmanCanvas.create_line(200,130,200,250)
         chances -= 1
+    #draw first arm
     if chances == 4:
-        hangmanCanvas.create_line(170,100,100,150)
+        hangmanCanvas.create_line(170,200,200,150)
         chances -= 1
+    #draw second arm
     if chances == 3:
-        hangmanCanvas.create_line(230,100,300,150)
+        hangmanCanvas.create_line(230,200,200,150)
         chances -= 1
+    #draw first leg
     if chances == 2:
-        hangmanCanvas.create_line(200,250,100,300)
+        hangmanCanvas.create_line(200,250,230,300)
         chances -= 1
+    #draw second leg
     if chances == 1:
-        hangmanCanvas.create_line(200,250,300,300)
+        hangmanCanvas.create_line(200,250,170,300)
         chances -= 1
         
         
