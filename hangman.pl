@@ -46,7 +46,7 @@ processGuess(AnsList, BlankList, _, CountFailed) :-
   ->  format('Sorry, game over. You didn\'t guess (~s)~n', [AnsList])
   ;   write('Nope!'),
       CountFailed1 is CountFailed + 1,
-      getGuess(AnsList, BlankList, CountFailed1)
+      askGuess(AnsList, BlankList, CountFailed1)
   ).
 
 % Check to see the vocab is guessed. If so, write 'You win'
