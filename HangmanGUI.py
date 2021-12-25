@@ -2,16 +2,17 @@ from tkinter import *
 from pyswip import Prolog
 import random
 
-
-
 chances = 6
 letterList = ['a','b','c','d','e','f','g','h','i','j','k','l','m',
             'n','o','p','q','r','s','t','u','v','w','x','y','z']
-vocabList = ['software','security','engineering','programmer','algorithm','data','network','logic']
+vocabList = ['software','security','engineering','programmer','algorithm','data','network','logic','computer','hardware']
 
 global vocabStr,AIGuess,UserAns, AiChances
+
+#Height and width of the UI
 w=600
 h=400
+
 # Load Prolog file
 #prolog = Prolog()
 #prolog.consult("hangman")
@@ -26,6 +27,7 @@ def drawHangman():
     #draw head
     if chances == 5:
         hangmanCanvas.create_oval(200-radius, 100-radius,200+radius, 100+radius)
+        chanceNum.delete(0, 'end')
         chanceNum.insert(END,chances)
         guessing()
 
@@ -33,32 +35,38 @@ def drawHangman():
     #draw body
     if chances == 4:
         hangmanCanvas.create_line(200,130,200,250)
+        chanceNum.delete(0, 'end')
         chanceNum.insert(END,chances)
         guessing()
 
     #draw first arm
     if chances == 3:
         hangmanCanvas.create_line(170,200,200,150)
+        chanceNum.delete(0, 'end')
         chanceNum.insert(END,chances)
         guessing()
 
     #draw second arm
     if chances == 2:
         hangmanCanvas.create_line(230,200,200,150)
+        chanceNum.delete(0, 'end')
         chanceNum.insert(END,chances)
         guessing()
 
     #draw first leg
     if chances == 1:
         hangmanCanvas.create_line(200,250,230,300)
+        chanceNum.delete(0, 'end')
         chanceNum.insert(END,chances)
         guessing()
 
     #draw second leg
     if chances == 0:
         hangmanCanvas.create_line(200,250,170,300)
+        chanceNum.delete(0, 'end')
         chanceNum.insert(END,chances)
         guessing()
+        print("You lose")
         
         
         
@@ -77,7 +85,7 @@ def startGame():
 # Answer the AI answer
 def answerAI():
     print("Correct!")
-    guessing()
+    
     
 
 # AI will guess the letter
@@ -124,7 +132,7 @@ chanceNum.pack()
 hangmanCanvas = Canvas(ws,width=w,height=h)
 hangmanCanvas.pack()
 
-AiAsk = "Is it: "+guessing()
+AiAsk = "Is it: "
 
 QuestionLabel = Label(ws,text=AiAsk,font=('Arial',16))
 QuestionLabel.pack()
