@@ -8,7 +8,7 @@ letterList = ['a','b','c','d','e','f','g','h','i','j','k','l','m',
             'n','o','p','q','r','s','t','u','v','w','x','y','z']
 vocabList = ['software','security','engineering','programmer','algorithm','data','network','logic','computer','hardware']
 
-global vocabStr,AIGuess,UserAns, AiChances,guessletter
+global vocabStr,AIGuess,UserAns, AiChances,guessletter,missedLetter
 
 #Height and width of the UI
 w=600
@@ -24,8 +24,10 @@ def drawHangman():
     global chances
     radius = 30
     chances -= 1
-    guessletter = random.choice(letterList)
     
+    guessletter = random.choice(letterList)
+    missedBox.insert(END,guessletter+", ")
+
     #draw head
     if chances == 5:
         hangmanCanvas.create_oval(200-radius, 100-radius,200+radius, 100+radius)
@@ -91,6 +93,7 @@ def startGame():
     
 # Answer the AI answer
 def answerAI():
+    global vocabStr
     print("Correct!")
     guessletter = random.choice(letterList)
     alphabetLabel.insert(END,guessletter)
@@ -110,6 +113,7 @@ def vocabGenerate():
     vocabStr = "_ "*len(UserAns)
     print(UserAns)
     inputText.insert(END,vocabStr)
+    UserText.insert(END,UserAns)
     
     return vocabStr
 
@@ -122,6 +126,7 @@ ws['bg']='#FF9CD1'
 
 title = Label(ws,text="User answer: ",font=('Arial',16))
 title.pack()
+
 UserText = Text(ws,height=1,width=20)
 UserText.pack()
 
@@ -133,6 +138,12 @@ guesswordLabel.pack()
 
 inputText = Text(ws,height=1,width=20)
 inputText.pack()
+
+missedLabel = Label(ws,text="Missed Letter: ",font=('Arial',16))
+missedLabel.pack()
+
+missedBox = Text(ws,height=1,width=20)
+missedBox.pack()
 
 chanceLabel = Label(ws,text="Chances: ",font=('Arial',16))
 chanceLabel.pack()
