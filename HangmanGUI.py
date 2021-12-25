@@ -21,12 +21,14 @@ h=300
 # Draw the hangman if the AI guess the wrong letter
 def drawHangman():
     hangmanCanvas.delete()
-    global chances
+    global chances,missedLetter
     radius = 30
     chances -= 1
+    missedLetter =[]
+    currentLetter = alphabetLabel.get("1.0","end-1c")
     
     guessletter = random.choice(letterList)
-    missedBox.insert(END,guessletter+", ")
+    
 
     #draw head
     if chances == 5:
@@ -34,6 +36,8 @@ def drawHangman():
         chanceNum.delete(0, 'end')
         chanceNum.insert(END,chances)
         alphabetLabel.insert(END,guessletter)
+        missedLetter.append(currentLetter)
+        missedBox.insert(END,str(missedLetter))
 
         
     #draw body
@@ -42,6 +46,8 @@ def drawHangman():
         chanceNum.delete(0, 'end')
         chanceNum.insert(END,chances)
         alphabetLabel.insert(END,guessletter)
+        missedLetter.append(currentLetter)
+        missedBox.insert(END,str(missedLetter))
 
     #draw first arm
     if chances == 3:
@@ -49,6 +55,8 @@ def drawHangman():
         chanceNum.delete(0, 'end')
         chanceNum.insert(END,chances)
         alphabetLabel.insert(END,guessletter)
+        missedLetter.append(currentLetter)
+        missedBox.insert(END,str(missedLetter))
 
     #draw second arm
     if chances == 2:
@@ -56,6 +64,8 @@ def drawHangman():
         chanceNum.delete(0, 'end')
         chanceNum.insert(END,chances)
         alphabetLabel.insert(END,guessletter)
+        missedLetter.append(currentLetter)
+        missedBox.insert(END,str(missedLetter))
 
     #draw first leg
     if chances == 1:
@@ -63,12 +73,16 @@ def drawHangman():
         chanceNum.delete(0, 'end')
         chanceNum.insert(END,chances)
         alphabetLabel.insert(END,guessletter)
+        missedLetter.append(currentLetter)
+        missedBox.insert(END,str(missedLetter))
 
     #draw second leg
     if chances == 0:
         hangmanCanvas.create_line(200,250,170,300)
         chanceNum.delete(0, 'end')
         chanceNum.insert(END,chances)
+        missedLetter.append(currentLetter)
+        missedBox.insert(END,str(missedLetter))
         alphabetLabel.insert(END,"You lose")
         print("You lose")
     
@@ -97,6 +111,13 @@ def answerAI():
     print("Correct!")
     guessletter = random.choice(letterList)
     alphabetLabel.insert(END,guessletter)
+
+    UserVocab = UserText.get("1.0","end-1c")
+    currentVocab = inputText.get("1.0","end-1c")
+    currentLetter = alphabetLabel.get("1.0","end-1c")
+    print(UserVocab)
+    print(currentVocab)
+    print(currentLetter)
     
     
 

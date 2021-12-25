@@ -1,44 +1,45 @@
 % List of guessing vocab and letter
 
 vocab(['Software','Security','Engineering','Programmer','Algorithm','Data','Network','Logic']).
-letter(['a','A','b','B','c','C','d','D','e','E','f','F','g','G','h','H','i','I','j','J','k','K','l','L','m','M','n','N','o','O','p','P','q','Q','r','R','s','S','t','T','u','U','v','V','w','W','x','X','y','Y','z','Z'])
+letter(['a','A','b','B','c','C','d','D','e','E','f','F','g','G','h','H','i','I','j','J','k','K','l','L','m','M','n','N','o','O','p','P','q','Q','r','R','s','S','t','T','u','U','v','V','w','W','x','X','y','Y','z','Z']).
 %run a game
 hangman:-
-    getVocab(Ans), 
-    !, 
+    getVocab(Ans),
+    !,
     write('Welcome to hangman.'),
     nl,
-    name(Ans,AnsList), 
-    makeBlanks(AnsList, BlankList), 
+    print(Ans),
+    name(Ans,AnsList),
+    makeBlanks(AnsList, BlankList),
     askGuess(AnsList,BlankList).
 
 % Randomly return a vocab from the list
 getVocab(Ans):-
-    vocab(L), 
-    length(L, X), 
-    R is random(X), 
-    N is R+1, 
+    vocab(L),
+    length(L, X),
+    R is random(X),
+    N is R+1,
     getNth(L, N, Ans).
 
 % This part is let AI guess the letter
 
-askGuess(AnsList, BlankList):- 
-    name(BlankName, BlankList), 
-    write(BlankName), 
-    nl,  
-    write('Enter your guess, followed by a period and return.'), 
-    nl, 
+askGuess(AnsList, BlankList):-
+    name(BlankName, BlankList),
+    write(BlankName),
+    nl,
+    write('Enter your guess, followed by a period and return.'),
+    nl,
     read(Guess),
-    !, 
-    name(Guess, [GuessName]), 
-    processGuess(AnsList,BlankList,GuessName)
+    !,
+    name(Guess, [GuessName]),
+    processGuess(AnsList,BlankList,GuessName).
 
-processGuess(AnsList,BlankList,GuessName):- 
-    member(GuessName,AnsList), 
+processGuess(AnsList,BlankList,GuessName):-
+    member(GuessName,AnsList),
     !,
     write('Correct!'),
-    nl, 
-    substitute(AnsList, BlankList, GuessName, NewBlanks), 
+    nl,
+    substitute(AnsList, BlankList, GuessName, NewBlanks),
     checkWin(AnsList,NewBlanks).
 
 processGuess(AnsList, BlankList, _, CountFailed) :-
@@ -51,14 +52,14 @@ processGuess(AnsList, BlankList, _, CountFailed) :-
 
 % Check to see the vocab is guessed. If so, write 'You win'
 
-checkWin(AnsList, BlankList):- 
-    name(Ans, AnsList), 
-    name(BlankName, BlankList), 
-    BlankName = Ans, 
-    !, 
+checkWin(AnsList, BlankList):-
+    name(Ans, AnsList),
+    name(BlankName, BlankList),
+    BlankName = Ans,
+    !,
     write('You win!').
 
-checkWin(AnsList, BlankList):- 
+checkWin(AnsList, BlankList):-
     !,
     askGuess(AnsList, BlankList).
 
@@ -80,15 +81,11 @@ makeBlanks(AnsCodes, BlankCodes) :-
 answer_blank(Ans, Blank) :-
   Ans == 0'_ -> Blank = Ans ; Blank = 0'* .
 
-% substitute(AnsList, BlankList, GuessName, NewBlanks) Takes character code lists AnsList and BlankList, 
-% and GuessName, which is the character code for the guessed letter.  The NewBlanks should again be a 
+% substitute(AnsList, BlankList, GuessName, NewBlanks) Takes character code lists AnsList and BlankList,
+% and GuessName, which is the character code for the guessed letter.  The NewBlanks should again be a
 % character code list, which puts all the guesses into the display word and keeps the *'s and _'s otherwise.
 substitute(AnsCodes, BlankCodes, GuessName, NewBlanks) :-
      maplist(place_guess(GuessName), AnsCodes, BlankCodes, NewBlanks).
 
 place_guess(Guess, Ans, Blank, Display) :-
     Guess == Ans -> Display = Ans ; Display = Blank.
-
-% This part is let user answer the AI
-
-% This part is for drawing the hangman
