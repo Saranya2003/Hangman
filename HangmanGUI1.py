@@ -7,26 +7,31 @@ chances = 6
 letterList = ['a','b','c','d','e','f','g','h','i','j','k','l','m',
             'n','o','p','q','r','s','t','u','v','w','x','y','z']
 vocabList = ['software','security','engineering','programmer','algorithm','data','network','logic','computer','hardware']
-worngGuess = []
+
 global vocabStr,AIGuess,UserAns, AiChances,guessletter,missedLetter
 
 #Height and width of the UI
 w=600
 h=300
 
-prolog = Prolog()
-prolog.consult("hangman.pl")
+# Load Prolog file
+#prolog = Prolog()
+#prolog.consult("hangman")
 
 # Draw the hangman if the AI guess the wrong letter
 def drawHangman():
     hangmanCanvas.delete()
-    global chances
+    global chances,missedLetter
     radius = 30
     chances -= 1
-
+    missedLetter =[]
+    currentLetter = alphabetLabel.get("1.0","end-1c")
     
     guessletter = random.choice(letterList)
-    missedBox.insert(END,guessletter+", ")
+
+    if guessletter in missedLetter:
+        return
+    
 
     #draw head
     if chances == 5:
@@ -34,6 +39,8 @@ def drawHangman():
         chanceNum.delete(0, 'end')
         chanceNum.insert(END,chances)
         alphabetLabel.insert(END,guessletter)
+        missedLetter.append(currentLetter)
+        missedBox.insert(END,str(missedLetter))
 
         
     #draw body
@@ -42,6 +49,8 @@ def drawHangman():
         chanceNum.delete(0, 'end')
         chanceNum.insert(END,chances)
         alphabetLabel.insert(END,guessletter)
+        missedLetter.append(currentLetter)
+        missedBox.insert(END,str(missedLetter))
 
     #draw first arm
     if chances == 3:
@@ -49,6 +58,8 @@ def drawHangman():
         chanceNum.delete(0, 'end')
         chanceNum.insert(END,chances)
         alphabetLabel.insert(END,guessletter)
+        missedLetter.append(currentLetter)
+        missedBox.insert(END,str(missedLetter))
 
     #draw second arm
     if chances == 2:
@@ -56,6 +67,8 @@ def drawHangman():
         chanceNum.delete(0, 'end')
         chanceNum.insert(END,chances)
         alphabetLabel.insert(END,guessletter)
+        missedLetter.append(currentLetter)
+        missedBox.insert(END,str(missedLetter))
 
     #draw first leg
     if chances == 1:
@@ -63,12 +76,16 @@ def drawHangman():
         chanceNum.delete(0, 'end')
         chanceNum.insert(END,chances)
         alphabetLabel.insert(END,guessletter)
+        missedLetter.append(currentLetter)
+        missedBox.insert(END,str(missedLetter))
 
     #draw second leg
     if chances == 0:
         hangmanCanvas.create_line(200,250,170,300)
         chanceNum.delete(0, 'end')
         chanceNum.insert(END,chances)
+        missedLetter.append(currentLetter)
+        missedBox.insert(END,str(missedLetter))
         alphabetLabel.insert(END,"You lose")
         print("You lose")
     
@@ -81,16 +98,11 @@ def drawHangman():
      
 #Start game
 def startGame():
-    # Load Prolog file
-    
     hangmanCanvas.create_line(10,w-10,50,w-10)
     hangmanCanvas.create_line(30,w-10,30,50)
     hangmanCanvas.create_line(30,50,200,50)
     hangmanCanvas.create_line(200,50,200,70)
     input = inputText.get("1.0","end-1c")
-
-
-    b = prolog.query('name')
 
     
 # Answer the AI answer
@@ -99,6 +111,13 @@ def answerAI():
     print("Correct!")
     guessletter = random.choice(letterList)
     alphabetLabel.insert(END,guessletter)
+
+    UserVocab = UserText.get("1.0","end-1c")
+    currentVocab = inputText.get("1.0","end-1c")
+    currentLetter = alphabetLabel.get("1.0","end-1c")
+    print(UserVocab)
+    print(currentVocab)
+    print(currentLetter)
     
     
 
@@ -111,16 +130,11 @@ def guessing():
 # Generate the vocabulary
 def vocabGenerate():
     #vocab = random.choice(Prolog.consult)
-    #UserAns = random.choice(vocabList)
-    #vocabStr = "_ "*len(UserAns)
-    bquery = prolog.query("getVocab(Ans)")
-    a = next(bquery)
-    print(a['Ans'])
-    vocabStr = a['Ans']
-    #print(UserAns)
+    UserAns = random.choice(vocabList)
+    vocabStr = "_ "*len(UserAns)
+    print(UserAns)
     inputText.insert(END,vocabStr)
-    UserText.insert(END,vocabStr)
-    #UserText.insert(END,UserAns)
+    UserText.insert(END,UserAns)
     
     return vocabStr
 
