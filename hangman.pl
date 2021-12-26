@@ -1,7 +1,7 @@
 % List of guessing vocab and letter
 
-vocab(['Software','Security','Engineering','Programmer','Algorithm','Data','Network','Logic']).
-letter(['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w''x','y','z']).
+vocab(['hurt','pear','rain','crab','rose','wave','kite','bear','care','fast']).
+letter(['a','b','c','e','h','i','k','n','o','p','r','s','t','u','w']).
 %run a game
 hangman:-
     getVocab(Ans),
